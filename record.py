@@ -49,6 +49,3 @@ def recorder(seconds):
     wf.setframerate(fs)
     wf.writeframes(b''.join(frames))
     wf.close()
-    
-while(True):
-    recorder(5)
