@@ -7,18 +7,18 @@ def mainfunction(source):
     my_time  = r.recognize_google(audio)
     
     #Possible audio input strings
-    timeStrings = ["one", "two", "three", "four", "five"]
-    timeIntegerStrings = ["1", "2", "3", "4", "5"]
+    time_strings = ["one", "two", "three", "four", "five"]
+    time_integer_strings = ["1", "2", "3", "4", "5"]
 
     #Times for timer as ints
-    sleepTime = [1, 2, 3, 4, 5]
+    sleep_time = [1, 2, 3, 4, 5]
     counter = 0;
 
     #Sleep for the time specified
-    while counter < len(timeStrings):
-        if str(my_time) == timeStrings[counter] or str( my_time) == timeIntegerStrings[counter]:            
-            print("Sleeping for " + timeStrings[counter] + " seconds")
-            time.sleep(sleepTime[counter])
+    while counter < len(time_strings):
+        if str(my_time) == time_strings[counter] or str(my_time) == time_integer_strings[counter]:            
+            print("Sleeping for " + time_strings[counter] + " seconds")
+            time.sleep(sleep_time[counter])
         counter = counter + 1    
     
     print("Done sleeping")
