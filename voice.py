@@ -13,5 +13,5 @@ def instantListen(mic, r):
     #print((r.recognize_google(audio,language = 'en-US', show_all=True))['alternative'][0]['transcript'])
     return r.recognize_google(audio,language = 'en-US', show_all=True)
 
-#instantListen(derek,r)
+instantListen(derek,r)
 
