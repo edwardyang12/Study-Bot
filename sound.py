@@ -1,20 +1,21 @@
-#!/usr/bin/python
 import RPi.GPIO as GPIO
 import time
 
 #GPIO SETUP
-channel = 17
+sound = 17
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(channel, GPIO.IN)
+GPIO.setup(sound, GPIO.IN)
 
-def callback(channel):
-        if GPIO.input(channel):
-                print "Sound Detected!"
-        else:
-                print "Sound Detected!"
 
-GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
-GPIO.add_event_callback(channel, callback)  # assign function to GPIO PIN, Run function on change
+def callback(sound):
+        if GPIO.input(sound):
+                print "Sound Detected!"
+        	GPIO.output(led,HIGH)
+	else:
+                print "Sound Detected!"
+		GPIO.output(led,LOW)
+GPIO.add_event_detect(sound, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
+GPIO.add_event_callback(sound, callback)  # assign function to GPIO PIN, Run function on change
 
 # infinite loop
 while True:
