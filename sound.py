@@ -1,22 +1,31 @@
 import RPi.GPIO as GPIO
 import time
+import datetime
+import os
 
-#GPIO SETUP
-sound = 17
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(sound, GPIO.IN)
+SOUND_PIN = 21
+GPIO.setup(SOUND_PIN, GPIO.IN)
 
+count = 0
 
-def callback(sound):
-        if GPIO.input(sound):
-                print "Sound Detected!"
-        	GPIO.output(led,HIGH)
-	else:
-                print "Sound Detected!"
-		GPIO.output(led,LOW)
-GPIO.add_event_detect(sound, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
-GPIO.add_event_callback(sound, callback)  # assign function to GPIO PIN, Run function on change
+def DETECTED(SOUND_PIN):
+   global count
+   nowtime = datetime.datetime.now()
+   count += 1
 
-# infinite loop
-while True:
-        time.sleep(1)
+   print "Sound Detected! " + str(nowtime) + " " + str(count)
+   #os.system("/home/pi/scripts/playfile.py")
+
+   return nowtime
+print "Sound Module Test (CTRL+C to exit)"
+time.sleep(2)
+print "Ready"
+
+try:
+   GPIO.add_event_detect(SOUND_PIN, GPIO.RISING, callback=DETECTED)
+   while 1:
+      time.sleep(100)
+except KeyboardInterrupt:
+   print " Quit"
+   GPIO.cleanup()
