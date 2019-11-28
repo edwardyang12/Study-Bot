@@ -4,8 +4,6 @@ import voice
 import speech_recognition as sr
 import pygame
 
-r = sr.Recognizer()
-
 tempfile = "output1"
 counter =1
 
