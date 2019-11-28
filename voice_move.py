@@ -4,8 +4,8 @@ import voice
 import text2number
 import motor
 
-r = sr.Recognizer()
-derek = sr.AudioFile('output1.wav')
+#r = sr.Recognizer()
+#derek = sr.AudioFile('output1.wav')
 
 options = ["forward", "backward" , "rotateL", "rotateR"]
 steps = []
@@ -39,32 +39,40 @@ def retrace():
             motor.rotate90left(5)
 
 def recognizeMove(audio):
-    tryMove = (voice.instantListen(audio,r))['alternative'][0]['transcript']
+    dectected = False
+    tryMove = (voice.instantListen(audio,r))#['alternative'][0]['transcript']
     information = tryMove.split(" ")
     if(information[0]=='forward'):
         print('forward ' + str(text2number.magic(information[1])))
         motor.forwardMove(text2number.magic(information[1]))
         steps.insert(0,"forward " + text2number.magic(information[1]))
+        detected = True
     elif(information[0] == 'backward'):
         print('backward ' + str(text2number.magic(information[1])))
         motor.backwardMove(text2number.magic(information[1]))
         steps.insert(0,"backward " + text2number.magic(information[1]))
+        detected = True
     elif(information[0] == 'left'):
         print("rotate to left")
         motor.rotate90left(5)
         steps.insert(0,"rotateL")
+        detected = True
     elif(information[0] == 'right'):
         print("rotate to right")
         motor.rotate90right(5)
         steps.insert(0,"rotateR")
+        detected = True
     elif(information[0] == 'study'):
         motor.backwardMove(10)
         steps.insert(0,"backward 10")
         randomMove()
+        detected = True
     elif(information[0] == 'back'):
         retrace()
+        detected = True
     else:
         print("no movement")
+    return detected
 
-randomMove()
+#randomMove()
 
